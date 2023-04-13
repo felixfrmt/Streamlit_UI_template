@@ -28,8 +28,8 @@ st.selectbox(
 S = 100  # prix initial de l'action
 r = 0.05  # taux d'intérêt sans risque
 sigma = 0.2  # volatilité de l'action
-T = 2  # durée de la simulation en années
-N = 504  # nombre de pas de temps (jours) dans la simulation (252 jours par an)
+T = 1  # durée de la simulation en années
+N = 252  # nombre de pas de temps (jours) dans la simulation
 
 # Générer les valeurs aléatoires pour la simulation
 dt = T / N
