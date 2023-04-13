@@ -24,9 +24,7 @@ st.selectbox(
         ("Bitcoin", "Ethereum", "BNB"))
 
 
-import random
-
-# Générer des données aléatoires
+# Générer des données OHLCV aléatoires
 dates = pd.date_range('2022-01-01', periods=100)
 open_values = np.random.normal(100, 1, 100)
 close_values = np.random.normal(100, 1, 100)
@@ -34,29 +32,29 @@ high_values = np.maximum(open_values, close_values) + np.random.normal(0, 0.5, 1
 low_values = np.minimum(open_values, close_values) - np.random.normal(0, 0.5, 100)
 volume_values = np.random.randint(1000, 5000, size=100)
 
-# Ajouter des moyennes mobiles pour créer une courbe plus douce
-window_size = 10
-rolling_window = np.ones(window_size) / float(window_size)
-open_values = np.convolve(open_values, rolling_window, mode='valid')
-close_values = np.convolve(close_values, rolling_window, mode='valid')
-high_values = np.convolve(high_values, rolling_window, mode='valid')
-low_values = np.convolve(low_values, rolling_window, mode='valid')
-volume_values = np.convolve(volume_values, rolling_window, mode='valid')
-
-# Créer le dataframe OHLCV
-df = pd.DataFrame({'Date': dates[window_size-1:],
+# Créer un dataframe avec les données OHLCV
+df = pd.DataFrame({'Date': dates,
                    'Open': open_values,
                    'High': high_values,
                    'Low': low_values,
                    'Close': close_values,
                    'Volume': volume_values})
 
-# Création du graphique
+# Calculer les moyennes mobiles
+df['SMA_50'] = df['Close'].rolling(window=50).mean()
+df['SMA_100'] = df['Close'].rolling(window=100).mean()
+
+# Créer le graphique Plotly
 fig = go.Figure(data=[go.Candlestick(x=df['Date'],
                                      open=df['Open'],
                                      high=df['High'],
                                      low=df['Low'],
                                      close=df['Close'])])
+
+# Ajouter les traces pour les moyennes mobiles 50 et 100
+fig.add_trace(go.Scatter(x=df['Date'], y=df['SMA_50'], mode='lines', name='SMA 50'))
+fig.add_trace(go.Scatter(x=df['Date'], y=df['SMA_100'], mode='lines', name='SMA 100'))
+
 
 # Affichage du graphique dans Streamlit
 st.plotly_chart(fig)
