@@ -24,14 +24,21 @@ st.selectbox(
         ("Bitcoin", "Ethereum", "BNB"))
 
 
-# Création des données de test
-data = {'Date': ['2022-01-01', '2022-01-02', '2022-01-03', '2022-01-04', '2022-01-05'],
-        'Open': [100, 110, 120, 130, 140],
-        'High': [120, 130, 140, 150, 160],
-        'Low': [90, 100, 110, 120, 130],
-        'Close': [110, 120, 130, 140, 150]}
+# Création des données aléatoires
+dates = pd.date_range('2022-01-01', periods=100)
+open_values = np.random.randint(10, 50, size=100)
+high_values = np.random.randint(50, 100, size=100)
+low_values = np.random.randint(0, 10, size=100)
+close_values = np.random.randint(10, 50, size=100)
+volume_values = np.random.randint(1000, 5000, size=100)
 
-df = pd.DataFrame(data)
+# Création du dataframe OHLCV
+df = pd.DataFrame({'Date': dates,
+                   'Open': open_values,
+                   'High': high_values,
+                   'Low': low_values,
+                   'Close': close_values,
+                   'Volume': volume_values})
 
 # Création du graphique
 fig = go.Figure(data=[go.Candlestick(x=df['Date'],
