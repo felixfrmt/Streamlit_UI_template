@@ -1,7 +1,6 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
-pip install plotly==5.2.1
 import plotly.graph_objects as go
 
 st.markdown(
