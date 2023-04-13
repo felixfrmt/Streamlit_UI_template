@@ -25,12 +25,13 @@ st.selectbox(
 
 
 # Générer des données OHLCV aléatoires
-dates = pd.date_range('2022-01-01', periods=100)
-open_values = np.random.normal(100, 1, 100)
-close_values = np.random.normal(100, 1, 100)
-high_values = np.maximum(open_values, close_values) + np.random.normal(0, 0.5, 100)
-low_values = np.minimum(open_values, close_values) - np.random.normal(0, 0.5, 100)
-volume_values = np.random.randint(1000, 5000, size=100)
+dates = pd.date_range('2022-01-01', periods=1000)
+open_values = np.random.normal(100, 1, 1000)
+close_values = np.random.normal(100, 1, 1000)
+high_values = np.maximum(open_values, close_values) + np.random.normal(0, 0.5, 1000)
+low_values = np.minimum(open_values, close_values) - np.random.normal(0, 0.5, 1000)
+volume_values = np.random.randint(1000, 5000, size=1000)
+
 
 # Créer un dataframe avec les données OHLCV
 df = pd.DataFrame({'Date': dates,
