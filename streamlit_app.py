@@ -5,12 +5,9 @@ import numpy as np
 st.markdown(
     """
     <style>
-    .title {
+    .block-container {
         width: 80%;
         text-align: center;
-        }
-    .text {
-        width: 80%;
         }
     </style>
     """,
