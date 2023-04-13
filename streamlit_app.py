@@ -24,16 +24,27 @@ st.selectbox(
         ("Bitcoin", "Ethereum", "BNB"))
 
 
-# Création des données aléatoires
+import random
+
+# Générer des données aléatoires
 dates = pd.date_range('2022-01-01', periods=100)
-open_values = np.random.randint(10, 50, size=100)
-high_values = np.random.randint(50, 100, size=100)
-low_values = np.random.randint(0, 10, size=100)
-close_values = np.random.randint(10, 50, size=100)
+open_values = np.random.normal(100, 1, 100)
+close_values = np.random.normal(100, 1, 100)
+high_values = np.maximum(open_values, close_values) + np.random.normal(0, 0.5, 100)
+low_values = np.minimum(open_values, close_values) - np.random.normal(0, 0.5, 100)
 volume_values = np.random.randint(1000, 5000, size=100)
 
-# Création du dataframe OHLCV
-df = pd.DataFrame({'Date': dates,
+# Ajouter des moyennes mobiles pour créer une courbe plus douce
+window_size = 10
+rolling_window = np.ones(window_size) / float(window_size)
+open_values = np.convolve(open_values, rolling_window, mode='valid')
+close_values = np.convolve(close_values, rolling_window, mode='valid')
+high_values = np.convolve(high_values, rolling_window, mode='valid')
+low_values = np.convolve(low_values, rolling_window, mode='valid')
+volume_values = np.convolve(volume_values, rolling_window, mode='valid')
+
+# Créer le dataframe OHLCV
+df = pd.DataFrame({'Date': dates[window_size-1:],
                    'Open': open_values,
                    'High': high_values,
                    'Low': low_values,
