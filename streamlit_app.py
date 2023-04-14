@@ -127,7 +127,7 @@ fig2.update_layout(
 )
 
 
-df3 = pd.read_csv('https://raw.githubusercontent.com/matplotlib/mplfinance/2710cf4bb3d0c19fe9bda19c0b999588b658ed26/examples/data/yahoofinance-GOOG-20040819-20180120.csv')
+df3 = pd.read_csv('https://raw.githubusercontent.com/matplotlib/mplfinance/2710cf4bb3d0c19fe9bda19c0b999588b658ed26/examples/data/SPY_20110701_20120630_Bollinger.csv')
 
 
 df3['SMA_50'] = df3['Close'].rolling(window=50).mean()
