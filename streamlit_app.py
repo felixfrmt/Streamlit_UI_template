@@ -70,7 +70,7 @@ fig1.update_layout(
         orientation="h",
         yanchor="bottom",
         y=1.02,
-        xanchor="left",
+        xanchor="right",
         x=1
     )
 )
@@ -109,7 +109,7 @@ fig2.update_layout(
         orientation="h",
         yanchor="bottom",
         y=1.02,
-        xanchor="left",
+        xanchor="right",
         x=1
     )
 )
@@ -146,7 +146,7 @@ fig3.update_layout(
         orientation="h",
         yanchor="bottom",
         y=1.02,
-        xanchor="left",
+        xanchor="right",
         x=1
     )
 )
