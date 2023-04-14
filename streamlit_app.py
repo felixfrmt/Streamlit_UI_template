@@ -44,7 +44,7 @@ df['SMA_50'] = df['Close'].rolling(window=50).mean()
 df['SMA_100'] = df['Close'].rolling(window=100).mean()
 
 # Créer le graphique Plotly
-fig = go.Figure(data=[go.Candlestick(x=df['Date'],
+fig = go.Figure(data=[go.Candlestick(x=df.index,
                                      open=df['Open'],
                                      high=df['High'],
                                      low=df['Low'],
