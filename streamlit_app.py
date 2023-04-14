@@ -24,36 +24,20 @@ st.selectbox(
         ("Bitcoin", "Ethereum", "BNB"))
 
 
-# Définir les paramètres de la simulation
-S = 100  # prix initial de l'action
-r = 0.05  # taux d'intérêt sans risque
-sigma = 0.2  # volatilité de l'action
-T = 1  # durée de la simulation en années
-N = 252  # nombre de pas de temps (jours) dans la simulation
+start_date = '2022-01-01'
+end_date = '2022-12-31'
 
-# Générer les valeurs aléatoires pour la simulation
-dt = T / N
-t = np.linspace(0, T, N+1)
-W = np.random.standard_normal(size=N+1)
+# Créer une série temporelle quotidienne pour l'année
+dates = pd.date_range(start_date, end_date, freq='D')
 
-# Calculer le prix de l'action simulé
-S_t = S * np.exp((r - 0.5 * sigma**2) * t + sigma * np.sqrt(dt) * W.cumsum())
+# Générer des données OHLC aléatoires pour chaque jour
+open_prices = np.random.randint(low=100, high=200, size=len(dates))
+high_prices = np.random.randint(low=open_prices, high=300, size=len(dates))
+low_prices = np.random.randint(low=50, high=open_prices, size=len(dates))
+close_prices = np.random.randint(low=50, high=200, size=len(dates))
 
-# Générer les données OHLCV simulées
-dates = pd.date_range('2022-01-01', periods=N+1)
-open_values = S_t[:-1]
-close_values = S_t[1:]
-high_values = np.maximum(open_values, close_values) + np.random.normal(0, 0.5, N)
-low_values = np.minimum(open_values, close_values) - np.random.normal(0, 0.5, N)
-volume_values = np.random.randint(1000, 5000, size=N+1)
-
-# Créer un dataframe avec les données OHLCV simulées
-df = pd.DataFrame({'Date': dates,
-                   'Open': open_values,
-                   'High': high_values,
-                   'Low': low_values,
-                   'Close': close_values,
-                   'Volume': volume_values})
+# Créer un DataFrame contenant les données OHLC
+df = pd.DataFrame({'Open': open_prices, 'High': high_prices, 'Low': low_prices, 'Close': close_prices}, index=dates)
 
 # Calculer les moyennes mobiles
 df['SMA_50'] = df['Close'].rolling(window=50).mean()
