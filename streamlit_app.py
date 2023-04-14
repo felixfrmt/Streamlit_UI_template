@@ -114,7 +114,7 @@ fig2.update_layout(
     )
 )
 
-
+################################## Generate BITCOIN's Data  #####################################
 df3 = pd.read_csv('https://raw.githubusercontent.com/matplotlib/mplfinance/2710cf4bb3d0c19fe9bda19c0b999588b658ed26/examples/data/SPY_20110701_20120630_Bollinger.csv')
 
 df3['SMA_50'] = df3['Close'].rolling(window=50).mean()
@@ -181,3 +181,17 @@ elif crypto == "Ethereum":
       col2.image(image2, caption='')
       col3.image(image3, caption='')
       col4.image(image4, caption='')
+
+elif crypto == "BNB":
+      st.plotly_chart(fig1)
+      
+      col1, col2, col3 = st.columns(3)
+      
+      image1 = Image.open('./3.png')
+      image2 = Image.open('./5.png')
+      image3 = Image.open('./6.png')
+      image4 = Image.open('./7.png')
+      
+      col1.image(image1, caption='')
+      col2.image(image2, caption='')
+      col3.image(image3, caption='')
