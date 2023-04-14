@@ -80,8 +80,15 @@ fig.add_trace(go.Scatter(x=df.index, y=df['SMA_100'], mode='lines', name='SMA 10
 
 ################################## Generate BITCOIN's Data  #####################################
 df2 = pd.read_csv('https://raw.githubusercontent.com/plotly/datasets/master/finance-charts-apple.csv')
+
 df2['SMA_50'] = df2['AAPL.Close'].rolling(window=50).mean()
 df2['SMA_100'] = df2['AAPL.Close'].rolling(window=100).mean()
+
+df2['TP'] = (df2['Close'] + df2['Low'] + df2['High'])/3
+df2['std'] = df2['TP'].rolling(20).std(ddof=0)
+df2['MA-TP'] = df2['TP'].rolling(20).mean()
+df2['BOLU'] = df2['MA-TP'] + 2*df2['std']
+df2['BOLD'] = df2['MA-TP'] - 2*df2['std']
 
 fig2 = go.Figure(data=[go.Candlestick(x=df2['Date'],
                 open=df2['AAPL.Open'], high=df2['AAPL.High'],
@@ -90,6 +97,8 @@ fig2 = go.Figure(data=[go.Candlestick(x=df2['Date'],
 fig2.update_layout(xaxis_rangeslider_visible=False)
 fig2.add_trace(go.Scatter(x=df2['Date'], y=df2['SMA_50'], mode='lines', name='SMA 50'))
 fig2.add_trace(go.Scatter(x=df2['Date'], y=df2['SMA_100'], mode='lines', name='SMA 100'))
+fig2.add_trace(go.Scatter(x=df2['Date'], y=df2['BOLU'], mode='lines', name='Bande de Bollinger (up)'))
+fig2.add_trace(go.Scatter(x=df2['Date'], y=df2['BOLD'], mode='lines', name='Bande de Bollinger (down)'))
 
 # Affichage du graphique dans Streamlit
 if crypto == "Bitcoin":
