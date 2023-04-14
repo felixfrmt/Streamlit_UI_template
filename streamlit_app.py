@@ -21,7 +21,7 @@ st.markdown(
         text-align: center;
         }
       img {
-            width:75%;
+            width:60%;
             align-self: center;
             }
     </style>
