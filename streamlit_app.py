@@ -54,10 +54,10 @@ low_prices = prices - np.random.randint(low=50, high=100, size=len(dates))
 close_prices = prices - np.random.randint(low=10, high=20, size=len(dates))
 
 # Ajouter des perturbations aux prix OHLC
-open_prices += np.random.normal(scale=15, size=len(open_prices))
-high_prices += np.random.normal(scale=15, size=len(high_prices))
-low_prices += np.random.normal(scale=15, size=len(low_prices))
-close_prices += np.random.normal(scale=15, size=len(close_prices))
+open_prices += np.random.normal(scale=2, size=len(open_prices))
+high_prices += np.random.normal(scale=2, size=len(high_prices))
+low_prices += np.random.normal(scale=2, size=len(low_prices))
+close_prices += np.random.normal(scale=2, size=len(close_prices))
 
 # Créer un DataFrame contenant les données OHLC
 df = pd.DataFrame({'Open': open_prices, 'High': high_prices, 'Low': low_prices, 'Close': close_prices}, index=dates)
