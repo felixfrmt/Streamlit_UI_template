@@ -100,13 +100,39 @@ fig2.add_trace(go.Scatter(x=df2['Date'], y=df2['SMA_100'], mode='lines', name='S
 fig2.add_trace(go.Scatter(x=df2['Date'], y=df2['BOLU'], mode='lines', name='Bande de Bollinger (up)'))
 fig2.add_trace(go.Scatter(x=df2['Date'], y=df2['BOLD'], mode='lines', name='Bande de Bollinger (down)'))
 
+
+
+df3 = pd.read_csv('https://raw.githubusercontent.com/plotly/datasets/master/finance-charts-apple.csv')
+
+df3['SMA_50'] = df3['Close'].rolling(window=50).mean()
+df3['SMA_100'] = df3['Close'].rolling(window=100).mean()
+
+df3['TP'] = (df3['Close'] + df3['Low'] + df3['High'])/3
+df3['std'] = df3['TP'].rolling(20).std(ddof=0)
+df3['MA-TP'] = df3['TP'].rolling(20).mean()
+df3['BOLU'] = df3['MA-TP'] + 2*df3['std']
+df3['BOLD'] = df3['MA-TP'] - 2*df3['std']
+
+fig3 = go.Figure(data=[go.Candlestick(x=df3['Date'],
+                open=df3['Open'], high=df3['High'],
+                low=df3['Low'], close=df3['Close'])
+                     ])
+fig3.update_layout(xaxis_rangeslider_visible=False)
+fig3.add_trace(go.Scatter(x=df2['Date'], y=df2['SMA_50'], mode='lines', name='SMA 50'))
+fig3.add_trace(go.Scatter(x=df2['Date'], y=df2['SMA_100'], mode='lines', name='SMA 100'))
+fig3.add_trace(go.Scatter(x=df2['Date'], y=df2['BOLU'], mode='lines', name='Bande de Bollinger (up)'))
+fig3.add_trace(go.Scatter(x=df2['Date'], y=df2['BOLD'], mode='lines', name='Bande de Bollinger (down)'))
+
+
+
+
 # Affichage du graphique dans Streamlit
 if crypto == "Bitcoin":
     st.plotly_chart(fig2)
 
     
 elif crypto == "Ethereum":
-    st.plotly_chart(fig)
+    st.plotly_chart(fig3)
 
 
 
