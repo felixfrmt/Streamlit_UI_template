@@ -167,10 +167,10 @@ elif crypto == "Ethereum":
       image3 = Image.open('./6.png')
       image4 = Image.open('./7.png')
       
-      col1.image(image1, caption='')
+      col1.image(image1, caption="Gap d'ouverture haussier")
       col2.image(image2, caption='RSI en sur-achat au dessus de 80')
       col3.image(image3, caption='Le cours se situe au dessus du point pivot R3')
-      col1.image(image4, caption='')
+      col1.image(image4, caption='Ouverture baissière')
 
 elif crypto == "BNB":
       st.plotly_chart(fig1)
