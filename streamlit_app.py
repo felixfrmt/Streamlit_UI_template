@@ -180,7 +180,7 @@ elif crypto == "Ethereum":
       col1.image(image1, caption='')
       col2.image(image2, caption='')
       col3.image(image3, caption='')
-      col4.image(image4, caption='')
+      col1.image(image4, caption='')
 
 elif crypto == "BNB":
       st.plotly_chart(fig1)
