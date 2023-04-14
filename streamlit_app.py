@@ -102,51 +102,42 @@ fig2.add_trace(go.Scatter(x=df2['Date'], y=df2['BOLD'], mode='lines', name='Band
 
 
 
-df3 = pd.read_csv('https://raw.githubusercontent.com/matplotlib/mplfinance/blob/2710cf4bb3d0c19fe9bda19c0b999588b658ed26/examples/data/yahoofinance-GOOG-20040819-20180120.csv')
+# df3 = pd.read_csv('https://raw.githubusercontent.com/matplotlib/mplfinance/blob/2710cf4bb3d0c19fe9bda19c0b999588b658ed26/examples/data/yahoofinance-GOOG-20040819-20180120.csv')
 
 
-df3['SMA_50'] = df3['Close'].rolling(window=50).mean()
-df3['SMA_100'] = df3['Close'].rolling(window=100).mean()
+# df3['SMA_50'] = df3['Close'].rolling(window=50).mean()
+# df3['SMA_100'] = df3['Close'].rolling(window=100).mean()
 
-df3['TP'] = (df3['Close'] + df3['Low'] + df3['High'])/3
-df3['std'] = df3['TP'].rolling(20).std(ddof=0)
-df3['MA-TP'] = df3['TP'].rolling(20).mean()
-df3['BOLU'] = df3['MA-TP'] + 2*df3['std']
-df3['BOLD'] = df3['MA-TP'] - 2*df3['std']
+# df3['TP'] = (df3['Close'] + df3['Low'] + df3['High'])/3
+# df3['std'] = df3['TP'].rolling(20).std(ddof=0)
+# df3['MA-TP'] = df3['TP'].rolling(20).mean()
+# df3['BOLU'] = df3['MA-TP'] + 2*df3['std']
+# df3['BOLD'] = df3['MA-TP'] - 2*df3['std']
 
-fig3 = go.Figure(data=[go.Candlestick(x=df3['Date'],
-                open=df3['Open'], high=df3['High'],
-                low=df3['Low'], close=df3['Close'])
-                     ])
-fig3.update_layout(xaxis_rangeslider_visible=False)
-fig3.add_trace(go.Scatter(x=df2['Date'], y=df2['SMA_50'], mode='lines', name='SMA 50'))
-fig3.add_trace(go.Scatter(x=df2['Date'], y=df2['SMA_100'], mode='lines', name='SMA 100'))
-fig3.add_trace(go.Scatter(x=df2['Date'], y=df2['BOLU'], mode='lines', name='Bande de Bollinger (up)'))
-fig3.add_trace(go.Scatter(x=df2['Date'], y=df2['BOLD'], mode='lines', name='Bande de Bollinger (down)'))
+# fig3 = go.Figure(data=[go.Candlestick(x=df3['Date'],
+#                 open=df3['Open'], high=df3['High'],
+#                 low=df3['Low'], close=df3['Close'])
+#                      ])
+# fig3.update_layout(xaxis_rangeslider_visible=False)
+# fig3.add_trace(go.Scatter(x=df2['Date'], y=df2['SMA_50'], mode='lines', name='SMA 50'))
+# fig3.add_trace(go.Scatter(x=df2['Date'], y=df2['SMA_100'], mode='lines', name='SMA 100'))
+# fig3.add_trace(go.Scatter(x=df2['Date'], y=df2['BOLU'], mode='lines', name='Bande de Bollinger (up)'))
+# fig3.add_trace(go.Scatter(x=df2['Date'], y=df2['BOLD'], mode='lines', name='Bande de Bollinger (down)'))
 
 
 
 
 # Affichage du graphique dans Streamlit
 if crypto == "Bitcoin":
-    st.plotly_chart(fig2)
+      st.plotly_chart(fig2)
+      col1, col2, col3 = st.columns(3)
+      image1 = Image.open('./img/1.png')
+      col1.image(image1, caption='Sunrise by the mountains')
 
     
 elif crypto == "Ethereum":
-    st.plotly_chart(fig3)
+      st.plotly_chart(fig3)
 
 
-
-col1, col2, col3 = st.columns(3)
-col1.write("""
-    <div class="card" style="width: 18rem;">
-        <img src="https://via.placeholder.com/150" class="card-img-top" alt="...">
-        <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
-        </div>
-    </div>
-""", unsafe_allow_html=True)
 
 
