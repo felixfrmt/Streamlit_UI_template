@@ -89,7 +89,7 @@ elif crypto == "Ethereum":
 
 
 col1, col2, col3 = st.columns(3)
-col1.st.write("""
+col1.write("""
     <div class="card" style="width: 18rem;">
         <img src="https://via.placeholder.com/150" class="card-img-top" alt="...">
         <div class="card-body">
