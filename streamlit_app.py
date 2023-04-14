@@ -84,7 +84,7 @@ df2 = pd.read_csv('https://raw.githubusercontent.com/plotly/datasets/master/fina
 df2['SMA_50'] = df2['AAPL.Close'].rolling(window=50).mean()
 df2['SMA_100'] = df2['AAPL.Close'].rolling(window=100).mean()
 
-df2['TP'] = (df2['Close'] + df2['Low'] + df2['High'])/3
+df2['TP'] = (df2['AAPL.Close'] + df2['AAPL.Low'] + df2['AAPL.High'])/3
 df2['std'] = df2['TP'].rolling(20).std(ddof=0)
 df2['MA-TP'] = df2['TP'].rolling(20).mean()
 df2['BOLU'] = df2['MA-TP'] + 2*df2['std']
