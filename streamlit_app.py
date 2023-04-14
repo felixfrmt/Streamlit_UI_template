@@ -132,8 +132,16 @@ fig2.add_trace(go.Scatter(x=df2['Date'], y=df2['BOLD'], mode='lines', name='Band
 if crypto == "Bitcoin":
       st.plotly_chart(fig2)
       col1, col2, col3 = st.columns(3)
+      
       image1 = Image.open('./1.png')
-      col1.image(image1, caption='Sunrise by the mountains')
+      image2 = Image.open('./4.png')
+      image3 = Image.open('./5.png')
+      image4 = Image.open('./6.png')
+      
+      col1.image(image1, caption='')
+      col1.image(image2, caption='')
+      col1.image(image3, caption='')
+      col1.image(image4, caption='')
 
     
 elif crypto == "Ethereum":
