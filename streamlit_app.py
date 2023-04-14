@@ -180,8 +180,8 @@ elif crypto == "BNB":
       image3 = Image.open('./9.png')
       image4 = Image.open('./7.png')
       
-      col1.image(image1, caption='')
-      col2.image(image2, caption='')
-      col3.image(image3, caption='')
+      col1.image(image1, caption="Gap d'ouverture haussier")
+      col2.image(image2, caption='Le cours croise à la baisse la moyenne mobile adaptative 20')
+      col3.image(image3, caption='Proximité résistance horizontale')
       col1.image(image4, caption='Ouverture baissière')
     
