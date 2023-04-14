@@ -20,6 +20,9 @@ st.markdown(
         width: 80%;
         text-align: center;
         }
+      img {
+            width:75%;
+            }
     </style>
     """,
     unsafe_allow_html=True
@@ -79,6 +82,17 @@ fig.update_layout(xaxis_rangeslider_visible=False)
 fig.add_trace(go.Scatter(x=df.index, y=df['SMA_50'], mode='lines', name='SMA 50'))
 fig.add_trace(go.Scatter(x=df.index, y=df['SMA_100'], mode='lines', name='SMA 100'))
 
+fig.update_layout(
+    legend=dict(
+        orientation="h",
+        yanchor="bottom",
+        y=1.02,
+        xanchor="right",
+        x=1
+    )
+)
+
+
 ################################## Generate BITCOIN's Data  #####################################
 df2 = pd.read_csv('https://raw.githubusercontent.com/plotly/datasets/master/finance-charts-apple.csv')
 
@@ -101,6 +115,15 @@ fig2.add_trace(go.Scatter(x=df2['Date'], y=df2['SMA_100'], mode='lines', name='S
 fig2.add_trace(go.Scatter(x=df2['Date'], y=df2['BOLU'], mode='lines', name='Bande de Bollinger (up)'))
 fig2.add_trace(go.Scatter(x=df2['Date'], y=df2['BOLD'], mode='lines', name='Bande de Bollinger (down)'))
 
+fig2.update_layout(
+    legend=dict(
+        orientation="h",
+        yanchor="bottom",
+        y=1.02,
+        xanchor="right",
+        x=1
+    )
+)
 
 
 # df3 = pd.read_csv('https://raw.githubusercontent.com/matplotlib/mplfinance/blob/2710cf4bb3d0c19fe9bda19c0b999588b658ed26/examples/data/yahoofinance-GOOG-20040819-20180120.csv')
