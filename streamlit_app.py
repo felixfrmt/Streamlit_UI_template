@@ -35,7 +35,7 @@ dates = pd.date_range(start_date, end_date, freq='D')
 prices = np.zeros(len(dates))
 prices[0] = np.random.randint(low=100, high=200)
 for i in range(1, len(dates)):
-    if i < len(dates) // 2:
+    if i < 3 * len(dates) // 4:
         prices[i] = prices[i-1] * np.random.normal(loc=1.002, scale=0.01)
     else:
         prices[i] = prices[i-1] - 1.0
