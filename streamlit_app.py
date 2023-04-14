@@ -31,11 +31,18 @@ end_date = '2022-12-31'
 # Créer une série temporelle quotidienne pour l'année
 dates = pd.date_range(start_date, end_date, freq='D')
 
-# Générer des données OHLC aléatoires pour chaque jour
-open_prices = np.random.randint(low=1000, high=2000, size=len(dates))
-high_prices = np.random.randint(low=open_prices, high=3000, size=len(dates))
-low_prices = np.random.randint(low=100, high=open_prices, size=len(dates))
-close_prices = np.random.randint(low=500, high=1500, size=len(dates))
+# Générer des données OHLC aléatoires avec une tendance haussière exponentielle suivie d'une tendance baissière linéairement
+prices = np.zeros(len(dates))
+prices[0] = np.random.randint(low=100, high=200)
+for i in range(1, len(dates)):
+    if i < len(dates) // 2:
+        prices[i] = prices[i-1] * np.random.normal(loc=1.002, scale=0.01)
+    else:
+        prices[i] = prices[i-1] - 1.0
+open_prices = prices + np.random.randint(low=10, high=20, size=len(dates))
+high_prices = prices + np.random.randint(low=50, high=100, size=len(dates))
+low_prices = prices - np.random.randint(low=50, high=100, size=len(dates))
+close_prices = prices - np.random.randint(low=10, high=20, size=len(dates))
 
 # Créer un DataFrame contenant les données OHLC
 df = pd.DataFrame({'Open': open_prices, 'High': high_prices, 'Low': low_prices, 'Close': close_prices}, index=dates)
