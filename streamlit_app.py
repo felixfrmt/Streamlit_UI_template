@@ -134,19 +134,26 @@ if crypto == "Bitcoin":
       col1, col2, col3 = st.columns(3)
       
       image1 = Image.open('./1.png')
-      image2 = Image.open('./4.png')
-      image3 = Image.open('./5.png')
-      image4 = Image.open('./6.png')
+      image2 = Image.open('./2.png')
+      image3 = Image.open('./4.png')
       
       col1.image(image1, caption='')
-      col1.image(image2, caption='')
-      col1.image(image3, caption='')
-      col1.image(image4, caption='')
+      col2.image(image2, caption='')
+      col3.image(image3, caption='')
 
     
 elif crypto == "Ethereum":
       st.plotly_chart(fig3)
-
+      
+      image1 = Image.open('./3.png')
+      image2 = Image.open('./4.png')
+      image3 = Image.open('./5.png')
+      image4 = Image.open('./7.png')
+      
+      col1.image(image1, caption='')
+      col2.image(image2, caption='')
+      col3.image(image3, caption='')
+      col4.image(image4, caption='')
 
 
 
