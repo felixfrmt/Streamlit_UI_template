@@ -19,9 +19,9 @@ st.title("Analyse des crypto-monnaies")
 st.write("Selectionnez une crypto-monnaie et visualisez le cours de sa valeur issue des données de Binance. L'analyse technique ensuite générée permet de calculer les indicateurs utilisés et d'afficher des alertes sur ces indicateurs."
 )
 
-st.selectbox(
-        "Choisissez une crypto !",
-        ("Bitcoin", "Ethereum", "BNB"))
+crypto = st.selectbox(
+            "Choisissez une crypto !",
+            ("Bitcoin", "Ethereum", "BNB"))
 
 
 # Définir la date de début et de fin de l'année
@@ -63,11 +63,32 @@ fig = go.Figure(data=[go.Candlestick(x=df.index,
                                      high=df['High'],
                                      low=df['Low'],
                                      close=df['Close'])])
+fig.update_layout(xaxis_rangeslider_visible=False)
 
 # Ajouter les traces pour les moyennes mobiles 50 et 100
 fig.add_trace(go.Scatter(x=df.index, y=df['SMA_50'], mode='lines', name='SMA 50'))
 fig.add_trace(go.Scatter(x=df.index, y=df['SMA_100'], mode='lines', name='SMA 100'))
 
+df2 = pd.read_csv('https://raw.githubusercontent.com/plotly/datasets/master/finance-charts-apple.csv')
+
+fig2 = go.Figure(data=[go.Candlestick(x=df2['Date'],
+                open=df2['AAPL.Open'], high=df2['AAPL.High'],
+                low=df2['AAPL.Low'], close=df2['AAPL.Close'])
+                     ])
+fig2.update_layout(xaxis_rangeslider_visible=False)
+
 
 # Affichage du graphique dans Streamlit
-st.plotly_chart(fig)
+if crypto == "Bitcoin":
+    st.plotly_chart(fig)
+
+    
+elif:
+    st.plotly_chart(fig2)
+else:
+
+
+
+
+
+
