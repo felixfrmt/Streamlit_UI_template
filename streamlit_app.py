@@ -12,7 +12,6 @@ st.markdown(
         text-align: center;
         }
       img {
-            width:60%;
             align-self: center;
             }
     </style>
