@@ -144,10 +144,10 @@ fig3 = go.Figure(data=[go.Candlestick(x=df3['Date'],
                 low=df3['Low'], close=df3['Close'])
                      ])
 fig3.update_layout(xaxis_rangeslider_visible=False)
-fig3.add_trace(go.Scatter(x=df2['Date'], y=df2['SMA_50'], mode='lines', name='SMA 50'))
-fig3.add_trace(go.Scatter(x=df2['Date'], y=df2['SMA_100'], mode='lines', name='SMA 100'))
-fig3.add_trace(go.Scatter(x=df2['Date'], y=df2['BOLU'], mode='lines', name='Bande de Bollinger (up)'))
-fig3.add_trace(go.Scatter(x=df2['Date'], y=df2['BOLD'], mode='lines', name='Bande de Bollinger (down)'))
+fig3.add_trace(go.Scatter(x=df3['Date'], y=df3['SMA_50'], mode='lines', name='SMA 50'))
+fig3.add_trace(go.Scatter(x=df3['Date'], y=df3['SMA_100'], mode='lines', name='SMA 100'))
+fig3.add_trace(go.Scatter(x=df3['Date'], y=df3['BOLU'], mode='lines', name='Bande de Bollinger (up)'))
+fig3.add_trace(go.Scatter(x=df3['Date'], y=df3['BOLD'], mode='lines', name='Bande de Bollinger (down)'))
 
 fig3.update_layout(
     legend=dict(
@@ -177,6 +177,8 @@ if crypto == "Bitcoin":
     
 elif crypto == "Ethereum":
       st.plotly_chart(fig3)
+      
+      col1, col2, col3 = st.columns(3)
       
       image1 = Image.open('./3.png')
       image2 = Image.open('./4.png')
