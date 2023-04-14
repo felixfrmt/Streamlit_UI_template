@@ -137,13 +137,13 @@ if crypto == "Bitcoin":
       image2 = Image.open('./2.png')
       image3 = Image.open('./4.png')
       
-      col1.image(image1, caption='')
-      col2.image(image2, caption='')
-      col3.image(image3, caption='')
+      col1.image(image1, caption='Moyenne mobile 50 passe haussière')
+      col2.image(image2, caption='Franchissement résistance horizontale')
+      col3.image(image3, caption='Le cours se situe en dessous du point pivot S1')
 
     
 elif crypto == "Ethereum":
-      st.plotly_chart(fig3)
+      st.plotly_chart(fig)
       
       image1 = Image.open('./3.png')
       image2 = Image.open('./4.png')
