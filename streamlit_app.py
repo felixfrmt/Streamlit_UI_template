@@ -103,6 +103,7 @@ fig2.add_trace(go.Scatter(x=df2['Date'], y=df2['BOLD'], mode='lines', name='Band
 
 
 df3 = pd.read_csv('https://raw.githubusercontent.com/plotly/datasets/master/finance-charts-apple.csv')
+df3.show()
 
 df3['SMA_50'] = df3['Close'].rolling(window=50).mean()
 df3['SMA_100'] = df3['Close'].rolling(window=100).mean()
