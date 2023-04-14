@@ -83,7 +83,7 @@ if crypto == "Bitcoin":
     st.plotly_chart(fig)
 
     
-elif:
+elif crypto == "Ethereum":
     st.plotly_chart(fig2)
 else:
 
