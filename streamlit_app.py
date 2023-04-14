@@ -79,13 +79,16 @@ fig.add_trace(go.Scatter(x=df.index, y=df['SMA_50'], mode='lines', name='SMA 50'
 fig.add_trace(go.Scatter(x=df.index, y=df['SMA_100'], mode='lines', name='SMA 100'))
 
 df2 = pd.read_csv('https://raw.githubusercontent.com/plotly/datasets/master/finance-charts-apple.csv')
+df2['SMA_50'] = df2['Close'].rolling(window=50).mean()
+df2['SMA_100'] = df2['Close'].rolling(window=100).mean()
 
 fig2 = go.Figure(data=[go.Candlestick(x=df2['Date'],
                 open=df2['AAPL.Open'], high=df2['AAPL.High'],
                 low=df2['AAPL.Low'], close=df2['AAPL.Close'])
                      ])
 fig2.update_layout(xaxis_rangeslider_visible=False)
-
+fig2.add_trace(go.Scatter(x=df2.index, y=df2['SMA_50'], mode='lines', name='SMA 50'))
+fig2.add_trace(go.Scatter(x=df2.index, y=df2['SMA_100'], mode='lines', name='SMA 100'))
 
 # Affichage du graphique dans Streamlit
 if crypto == "Bitcoin":
