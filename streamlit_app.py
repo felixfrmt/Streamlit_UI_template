@@ -102,7 +102,7 @@ fig2.add_trace(go.Scatter(x=df2['Date'], y=df2['BOLD'], mode='lines', name='Band
 
 
 
-df3 = pd.read_csv('https://github.com/matplotlib/mplfinance/blob/master/examples/data/yahoofinance-GOOG-20040819-20180120.csv')
+df3 = pd.read_csv('https://raw.githubusercontent.com/matplotlib/mplfinance/blob/master/examples/data/yahoofinance-GOOG-20040819-20180120.csv')
 
 
 df3['SMA_50'] = df3['Close'].rolling(window=50).mean()
