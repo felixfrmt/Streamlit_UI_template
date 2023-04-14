@@ -32,7 +32,7 @@ crypto = st.selectbox(
             "Choisissez une crypto !",
             ("Bitcoin", "Ethereum", "BNB"))
 
-
+################################## Generate ETHEREUM's Data #####################################
 # Définir la date de début et de fin de l'année
 start_date = '2022-01-01'
 end_date = '2022-12-31'
@@ -54,10 +54,10 @@ low_prices = prices - np.random.randint(low=50, high=100, size=len(dates))
 close_prices = prices - np.random.randint(low=10, high=20, size=len(dates))
 
 # Ajouter des perturbations aux prix OHLC
-open_prices += np.random.normal(scale=2, size=len(open_prices))
+open_prices += np.random.normal(scale=15, size=len(open_prices))
 high_prices += np.random.normal(scale=2, size=len(high_prices))
 low_prices += np.random.normal(scale=2, size=len(low_prices))
-close_prices += np.random.normal(scale=2, size=len(close_prices))
+close_prices += np.random.normal(scale=10, size=len(close_prices))
 
 # Créer un DataFrame contenant les données OHLC
 df = pd.DataFrame({'Open': open_prices, 'High': high_prices, 'Low': low_prices, 'Close': close_prices}, index=dates)
@@ -78,6 +78,7 @@ fig.update_layout(xaxis_rangeslider_visible=False)
 fig.add_trace(go.Scatter(x=df.index, y=df['SMA_50'], mode='lines', name='SMA 50'))
 fig.add_trace(go.Scatter(x=df.index, y=df['SMA_100'], mode='lines', name='SMA 100'))
 
+################################## Generate BITCOIN's Data  #####################################
 df2 = pd.read_csv('https://raw.githubusercontent.com/plotly/datasets/master/finance-charts-apple.csv')
 df2['SMA_50'] = df2['AAPL.Close'].rolling(window=50).mean()
 df2['SMA_100'] = df2['AAPL.Close'].rolling(window=100).mean()
@@ -87,8 +88,8 @@ fig2 = go.Figure(data=[go.Candlestick(x=df2['Date'],
                 low=df2['AAPL.Low'], close=df2['AAPL.Close'])
                      ])
 fig2.update_layout(xaxis_rangeslider_visible=False)
-fig2.add_trace(go.Scatter(x=df2.index, y=df2['SMA_50'], mode='lines', name='SMA 50'))
-fig2.add_trace(go.Scatter(x=df2.index, y=df2['SMA_100'], mode='lines', name='SMA 100'))
+fig2.add_trace(go.Scatter(x=df2['Date'], y=df2['SMA_50'], mode='lines', name='SMA 50'))
+fig2.add_trace(go.Scatter(x=df2['Date'], y=df2['SMA_100'], mode='lines', name='SMA 100'))
 
 # Affichage du graphique dans Streamlit
 if crypto == "Bitcoin":
