@@ -4,15 +4,6 @@ import numpy as np
 from PIL import Image
 import plotly.graph_objects as go
 
-import streamlit.components.v1 as components
-
-# bootstrap 4 collapse example
-components.html(
-#       '<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">',
-      """<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw7046Kd6TMOGn8HcYcNqVQ6UksdQRVvyVpTE1PiVo/" crossorigin="anonymous">""",
-      height=0,
-)
-
 st.markdown(
     """
     <style>
@@ -38,7 +29,7 @@ crypto = st.selectbox(
             ("Bitcoin", "Ethereum", "BNB"))
 
 ################################## Generate ETHEREUM's Data #####################################
-df1 = pd.read_csv('https://raw.githubusercontent.com/matplotlib/mplfinance/2710cf4bb3d0c19fe9bda19c0b999588b658ed26/examples/data/SPY_20110701_20120630_Bollinger.csv')
+df1 = pd.read_csv('https://raw.githubusercontent.com/matplotlib/mplfinance/2710cf4bb3d0c19fe9bda19c0b999588b658ed26/examples/data/yahoofinance-INTC-19950101-20040412.csv')
 
 
 df1['SMA_50'] = df1['Close'].rolling(window=50).mean()
@@ -178,8 +169,8 @@ elif crypto == "Ethereum":
       image4 = Image.open('./7.png')
       
       col1.image(image1, caption='')
-      col2.image(image2, caption='')
-      col3.image(image3, caption='')
+      col2.image(image2, caption='RSI en sur-achat au dessus de 80')
+      col3.image(image3, caption='Le cours se situe au dessus du point pivot R3')
       col1.image(image4, caption='')
 
 elif crypto == "BNB":
