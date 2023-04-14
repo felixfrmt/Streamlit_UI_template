@@ -24,6 +24,7 @@ st.selectbox(
         ("Bitcoin", "Ethereum", "BNB"))
 
 
+# Définir la date de début et de fin de l'année
 start_date = '2022-01-01'
 end_date = '2022-12-31'
 
@@ -31,10 +32,10 @@ end_date = '2022-12-31'
 dates = pd.date_range(start_date, end_date, freq='D')
 
 # Générer des données OHLC aléatoires pour chaque jour
-open_prices = np.random.randint(low=100, high=200, size=len(dates))
-high_prices = np.random.randint(low=open_prices, high=300, size=len(dates))
-low_prices = np.random.randint(low=50, high=open_prices, size=len(dates))
-close_prices = np.random.randint(low=50, high=200, size=len(dates))
+open_prices = np.random.randint(low=1000, high=2000, size=len(dates))
+high_prices = np.random.randint(low=open_prices, high=3000, size=len(dates))
+low_prices = np.random.randint(low=100, high=open_prices, size=len(dates))
+close_prices = np.random.randint(low=500, high=1500, size=len(dates))
 
 # Créer un DataFrame contenant les données OHLC
 df = pd.DataFrame({'Open': open_prices, 'High': high_prices, 'Low': low_prices, 'Close': close_prices}, index=dates)
