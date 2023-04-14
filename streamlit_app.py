@@ -80,11 +80,11 @@ fig2.update_layout(xaxis_rangeslider_visible=False)
 
 # Affichage du graphique dans Streamlit
 if crypto == "Bitcoin":
-    st.plotly_chart(fig)
+    st.plotly_chart(fig2)
 
     
 elif crypto == "Ethereum":
-    st.plotly_chart(fig2)
+    st.plotly_chart(fig)
 
 
 
