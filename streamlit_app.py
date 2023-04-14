@@ -38,60 +38,43 @@ crypto = st.selectbox(
             ("Bitcoin", "Ethereum", "BNB"))
 
 ################################## Generate ETHEREUM's Data #####################################
-# Définir la date de début et de fin de l'année
-start_date = '2022-01-01'
-end_date = '2022-12-31'
+df1 = pd.read_csv('https://raw.githubusercontent.com/matplotlib/mplfinance/2710cf4bb3d0c19fe9bda19c0b999588b658ed26/examples/data/SPY_20110701_20120630_Bollinger.csv')
 
-# Créer une série temporelle quotidienne pour l'année
-dates = pd.date_range(start_date, end_date, freq='D')
 
-# Générer des données OHLC aléatoires avec une tendance haussière exponentielle suivie d'une tendance baissière linéairement
-prices = np.zeros(len(dates))
-prices[0] = np.random.randint(low=100, high=200)
-for i in range(1, len(dates)):
-    if i < 3 * len(dates) // 4:
-        prices[i] = prices[i-1] * np.random.normal(loc=1.002, scale=0.01)
-    else:
-        prices[i] = prices[i-1] - 1.0
-open_prices = prices + np.random.randint(low=10, high=20, size=len(dates))
-high_prices = prices + np.random.randint(low=50, high=100, size=len(dates))
-low_prices = prices - np.random.randint(low=50, high=100, size=len(dates))
-close_prices = prices - np.random.randint(low=10, high=20, size=len(dates))
+df1['SMA_50'] = df1['Close'].rolling(window=50).mean()
+df1['SMA_100'] = df1['Close'].rolling(window=100).mean()
 
-# Ajouter des perturbations aux prix OHLC
-open_prices += np.random.normal(scale=15, size=len(open_prices))
-high_prices += np.random.normal(scale=2, size=len(high_prices))
-low_prices += np.random.normal(scale=2, size=len(low_prices))
-close_prices += np.random.normal(scale=10, size=len(close_prices))
+df1['TP'] = (df1['Close'] + df1['Low'] + df1['High'])/3
+df1['std'] = df1['TP'].rolling(20).std(ddof=0)
+df1['MA-TP'] = df1['TP'].rolling(20).mean()
+df1['BOLU'] = df1['MA-TP'] + 2*df1['std']
+df1['BOLD'] = df1['MA-TP'] - 2*df1['std']
 
-# Créer un DataFrame contenant les données OHLC
-df = pd.DataFrame({'Open': open_prices, 'High': high_prices, 'Low': low_prices, 'Close': close_prices}, index=dates)
+fig1 = go.Figure(data=[
+      go.Candlestick(
+            x=df1['Date'],
+            open=df1['Open'], 
+            high=df1['High'],
+            low=df1['Low'],
+            close=df1['Close'])
+      ])
 
-# Calculer les moyennes mobiles
-df['SMA_50'] = df['Close'].rolling(window=50).mean()
-df['SMA_100'] = df['Close'].rolling(window=100).mean()
+fig1.update_layout(xaxis_rangeslider_visible=False)
+fig1.add_trace(go.Scatter(x=df1['Date'], y=df1['SMA_50'], mode='lines', name='SMA 50'))
+fig1.add_trace(go.Scatter(x=df1['Date'], y=df1['SMA_100'], mode='lines', name='SMA 100'))
+fig1.add_trace(go.Scatter(x=df1['Date'], y=df1['BOLU'], mode='lines', name='Bande de Bollinger (up)'))
+fig1.add_trace(go.Scatter(x=df1['Date'], y=df1['BOLD'], mode='lines', name='Bande de Bollinger (down)'))
 
-# Créer le graphique Plotly
-fig = go.Figure(data=[go.Candlestick(x=df.index,
-                                     open=df['Open'],
-                                     high=df['High'],
-                                     low=df['Low'],
-                                     close=df['Close'])])
-fig.update_layout(xaxis_rangeslider_visible=False)
-
-# Ajouter les traces pour les moyennes mobiles 50 et 100
-fig.add_trace(go.Scatter(x=df.index, y=df['SMA_50'], mode='lines', name='SMA 50'))
-fig.add_trace(go.Scatter(x=df.index, y=df['SMA_100'], mode='lines', name='SMA 100'))
-
-fig.update_layout(
+fig1.update_layout(
     legend=dict(
         orientation="h",
         yanchor="bottom",
         y=1.02,
-        xanchor="right",
+        xanchor="left",
         x=1
     )
 )
+
 
 
 ################################## Generate BITCOIN's Data  #####################################
@@ -106,10 +89,15 @@ df2['MA-TP'] = df2['TP'].rolling(20).mean()
 df2['BOLU'] = df2['MA-TP'] + 2*df2['std']
 df2['BOLD'] = df2['MA-TP'] - 2*df2['std']
 
-fig2 = go.Figure(data=[go.Candlestick(x=df2['Date'],
-                open=df2['AAPL.Open'], high=df2['AAPL.High'],
-                low=df2['AAPL.Low'], close=df2['AAPL.Close'])
-                     ])
+fig2 = go.Figure(data=[
+            go.Candlestick(
+                  x=df2['Date'],
+                  open=df2['AAPL.Open'], 
+                  high=df2['AAPL.High'],
+                  low=df2['AAPL.Low'],
+                  close=df2['AAPL.Close'])
+            ])
+
 fig2.update_layout(xaxis_rangeslider_visible=False)
 fig2.add_trace(go.Scatter(x=df2['Date'], y=df2['SMA_50'], mode='lines', name='SMA 50'))
 fig2.add_trace(go.Scatter(x=df2['Date'], y=df2['SMA_100'], mode='lines', name='SMA 100'))
@@ -121,14 +109,13 @@ fig2.update_layout(
         orientation="h",
         yanchor="bottom",
         y=1.02,
-        xanchor="right",
+        xanchor="left",
         x=1
     )
 )
 
 
 df3 = pd.read_csv('https://raw.githubusercontent.com/matplotlib/mplfinance/2710cf4bb3d0c19fe9bda19c0b999588b658ed26/examples/data/SPY_20110701_20120630_Bollinger.csv')
-
 
 df3['SMA_50'] = df3['Close'].rolling(window=50).mean()
 df3['SMA_100'] = df3['Close'].rolling(window=100).mean()
@@ -139,10 +126,15 @@ df3['MA-TP'] = df3['TP'].rolling(20).mean()
 df3['BOLU'] = df3['MA-TP'] + 2*df3['std']
 df3['BOLD'] = df3['MA-TP'] - 2*df3['std']
 
-fig3 = go.Figure(data=[go.Candlestick(x=df3['Date'],
-                open=df3['Open'], high=df3['High'],
-                low=df3['Low'], close=df3['Close'])
-                     ])
+fig3 = go.Figure(data=[
+            go.Candlestick(
+                  x=df3['Date'],
+                  open=df3['Open'],
+                  high=df3['High'],
+                  low=df3['Low'],
+                  close=df3['Close'])
+            ])
+
 fig3.update_layout(xaxis_rangeslider_visible=False)
 fig3.add_trace(go.Scatter(x=df3['Date'], y=df3['SMA_50'], mode='lines', name='SMA 50'))
 fig3.add_trace(go.Scatter(x=df3['Date'], y=df3['SMA_100'], mode='lines', name='SMA 100'))
@@ -154,7 +146,7 @@ fig3.update_layout(
         orientation="h",
         yanchor="bottom",
         y=1.02,
-        xanchor="right",
+        xanchor="left",
         x=1
     )
 )
@@ -181,14 +173,11 @@ elif crypto == "Ethereum":
       col1, col2, col3 = st.columns(3)
       
       image1 = Image.open('./3.png')
-      image2 = Image.open('./4.png')
-      image3 = Image.open('./5.png')
+      image2 = Image.open('./5.png')
+      image3 = Image.open('./6.png')
       image4 = Image.open('./7.png')
       
       col1.image(image1, caption='')
       col2.image(image2, caption='')
       col3.image(image3, caption='')
       col4.image(image4, caption='')
-
-
-
