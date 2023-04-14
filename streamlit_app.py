@@ -127,28 +127,37 @@ fig2.update_layout(
 )
 
 
-# df3 = pd.read_csv('https://raw.githubusercontent.com/matplotlib/mplfinance/blob/2710cf4bb3d0c19fe9bda19c0b999588b658ed26/examples/data/yahoofinance-GOOG-20040819-20180120.csv')
+df3 = pd.read_csv('https://raw.githubusercontent.com/matplotlib/mplfinance/2710cf4bb3d0c19fe9bda19c0b999588b658ed26/examples/data/yahoofinance-GOOG-20040819-20180120.csv')
 
 
-# df3['SMA_50'] = df3['Close'].rolling(window=50).mean()
-# df3['SMA_100'] = df3['Close'].rolling(window=100).mean()
+df3['SMA_50'] = df3['Close'].rolling(window=50).mean()
+df3['SMA_100'] = df3['Close'].rolling(window=100).mean()
 
-# df3['TP'] = (df3['Close'] + df3['Low'] + df3['High'])/3
-# df3['std'] = df3['TP'].rolling(20).std(ddof=0)
-# df3['MA-TP'] = df3['TP'].rolling(20).mean()
-# df3['BOLU'] = df3['MA-TP'] + 2*df3['std']
-# df3['BOLD'] = df3['MA-TP'] - 2*df3['std']
+df3['TP'] = (df3['Close'] + df3['Low'] + df3['High'])/3
+df3['std'] = df3['TP'].rolling(20).std(ddof=0)
+df3['MA-TP'] = df3['TP'].rolling(20).mean()
+df3['BOLU'] = df3['MA-TP'] + 2*df3['std']
+df3['BOLD'] = df3['MA-TP'] - 2*df3['std']
 
-# fig3 = go.Figure(data=[go.Candlestick(x=df3['Date'],
-#                 open=df3['Open'], high=df3['High'],
-#                 low=df3['Low'], close=df3['Close'])
-#                      ])
-# fig3.update_layout(xaxis_rangeslider_visible=False)
-# fig3.add_trace(go.Scatter(x=df2['Date'], y=df2['SMA_50'], mode='lines', name='SMA 50'))
-# fig3.add_trace(go.Scatter(x=df2['Date'], y=df2['SMA_100'], mode='lines', name='SMA 100'))
-# fig3.add_trace(go.Scatter(x=df2['Date'], y=df2['BOLU'], mode='lines', name='Bande de Bollinger (up)'))
-# fig3.add_trace(go.Scatter(x=df2['Date'], y=df2['BOLD'], mode='lines', name='Bande de Bollinger (down)'))
+fig3 = go.Figure(data=[go.Candlestick(x=df3['Date'],
+                open=df3['Open'], high=df3['High'],
+                low=df3['Low'], close=df3['Close'])
+                     ])
+fig3.update_layout(xaxis_rangeslider_visible=False)
+fig3.add_trace(go.Scatter(x=df2['Date'], y=df2['SMA_50'], mode='lines', name='SMA 50'))
+fig3.add_trace(go.Scatter(x=df2['Date'], y=df2['SMA_100'], mode='lines', name='SMA 100'))
+fig3.add_trace(go.Scatter(x=df2['Date'], y=df2['BOLU'], mode='lines', name='Bande de Bollinger (up)'))
+fig3.add_trace(go.Scatter(x=df2['Date'], y=df2['BOLD'], mode='lines', name='Bande de Bollinger (down)'))
 
+fig3.update_layout(
+    legend=dict(
+        orientation="h",
+        yanchor="bottom",
+        y=1.02,
+        xanchor="right",
+        x=1
+    )
+)
 
 
 
@@ -167,7 +176,7 @@ if crypto == "Bitcoin":
 
     
 elif crypto == "Ethereum":
-      st.plotly_chart(fig)
+      st.plotly_chart(fig3)
       
       image1 = Image.open('./3.png')
       image2 = Image.open('./4.png')
