@@ -51,8 +51,8 @@ fig = go.Figure(data=[go.Candlestick(x=df.index,
                                      close=df['Close'])])
 
 # Ajouter les traces pour les moyennes mobiles 50 et 100
-fig.add_trace(go.Scatter(x=df['Date'], y=df['SMA_50'], mode='lines', name='SMA 50'))
-fig.add_trace(go.Scatter(x=df['Date'], y=df['SMA_100'], mode='lines', name='SMA 100'))
+fig.add_trace(go.Scatter(x=df.index, y=df['SMA_50'], mode='lines', name='SMA 50'))
+fig.add_trace(go.Scatter(x=df.index, y=df['SMA_100'], mode='lines', name='SMA 100'))
 
 
 # Affichage du graphique dans Streamlit
